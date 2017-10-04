@@ -13,7 +13,127 @@ mvn org.apache.maven.plugins:maven-archetype-plugin:2.4:generate \
   -Dversion=1.0.0  
 ```
 
+OR
+
+use this project (clone it) and run
+
+`mvn clean install`
+
+ensure you have the [maven settings setup as per the Red Hat FIS documentation](https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html-single/fuse_integration_services_2.0_for_openshift/#get-started-configure-maven)
+
+Or use this in your ~/.m2/settings.xml 
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <pluginGroups>
+  </pluginGroups>
+
+  <proxies>
+  </proxies>
+
+  <servers>
+  </servers>
+
+  <mirrors>
+  </mirrors>
+
+  <profiles>
+    <profile>
+      <id>fusesource.repo</id>
+      <repositories>
+        <repository>
+          <id>redhat.ea</id>
+          <name>Red Hat Early Release Repository</name>
+          <url>https://maven.repository.redhat.com/earlyaccess/all</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+        </repository>
+        <repository>
+          <id>central</id>
+          <name>central</name>
+          <url>https://repo1.maven.org/maven2</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+        </repository>
+        <repository>
+          <id>redhat.ga</id>
+          <name>Red Hat GA</name>
+          <url>https://maven.repository.redhat.com/ga</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>redhat.ea</id>
+          <name>Red Hat EA Community Release Repository</name>
+          <url>https://maven.repository.redhat.com/earlyaccess/all</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+        </pluginRepository>
+        <pluginRepository>
+          <id>central</id>
+          <name>central</name>
+          <url>https://repo1.maven.org/maven2</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+        </pluginRepository>
+        <pluginRepository>
+          <id>redhat.ga</id>
+          <name>Red Hat GA</name>
+          <url>https://maven.repository.redhat.com/ga</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+
+
+  <activeProfiles>
+    <activeProfile>fusesource.repo</activeProfile>
+  </activeProfiles>
+
+</settings>
+
+
+```
+
 ### Create an encrypted value using a password:
+
+
 
 ```
 java -cp ~/.m2/repository/org/jasypt/jasypt/1.9.2/jasypt-1.9.2.jar  org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="proof of concept" password=redhat1! algorithm=PBEWithMD5AndDES
